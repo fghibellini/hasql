@@ -30,13 +30,13 @@ releaseConnection connection =
   LibPQ.finish connection
 
 {-# INLINE checkConnectionStatus #-}
-checkConnectionStatus :: LibPQ.Connection -> IO (Maybe (Maybe ByteString))
+checkConnectionStatus :: LibPQ.Connection -> IO (Maybe ConnectionError)
 checkConnectionStatus c =
   do
     s <- LibPQ.status c
     case s of
       LibPQ.ConnectionOk -> return Nothing
-      _ -> fmap Just (LibPQ.errorMessage c)
+      _ -> fmap (Just . ConnectionError) (LibPQ.errorMessage c)
 
 {-# INLINE checkServerVersion #-}
 checkServerVersion :: LibPQ.Connection -> IO (Maybe Int)

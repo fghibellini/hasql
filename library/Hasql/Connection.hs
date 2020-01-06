@@ -14,3 +14,4 @@ where
 
 import Hasql.Private.Connection
 import Hasql.Private.Settings
+import Hasql.Private.Errors (ConnectionError(..))

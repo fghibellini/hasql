@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveAnyClass #-}
 -- |
 -- An API for retrieval of multiple results.
 -- Can be used to handle:
@@ -13,6 +14,12 @@ module Hasql.Private.Errors where
 
 import Hasql.Private.Prelude
 
+
+-- |
+-- Possible details of the connection acquistion error.
+data ConnectionError =
+  ConnectionError (Maybe ByteString)
+  deriving (Show, Eq, Exception)
 
 -- |
 -- An error during the execution of a query.

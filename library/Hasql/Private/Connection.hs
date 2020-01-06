@@ -8,6 +8,7 @@ import qualified Database.PostgreSQL.LibPQ as LibPQ
 import qualified Hasql.Private.PreparedStatementRegistry as PreparedStatementRegistry
 import qualified Hasql.Private.IO as IO
 import qualified Hasql.Private.Settings as Settings
+import qualified Hasql.Private.Errors as Err
 
 
 -- |
@@ -16,13 +17,8 @@ data Connection =
   Connection !(MVar LibPQ.Connection) !Bool !PreparedStatementRegistry.PreparedStatementRegistry
 
 -- |
--- Possible details of the connection acquistion error.
-type ConnectionError =
-  Maybe ByteString
-
--- |
 -- Acquire a connection using the provided settings encoded according to the PostgreSQL format.
-acquire :: Settings.Settings -> IO (Either ConnectionError Connection)
+acquire :: Settings.Settings -> IO (Either Err.ConnectionError Connection)
 acquire settings =
   {-# SCC "acquire" #-}
   runExceptT $ do
