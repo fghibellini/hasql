@@ -26,7 +26,7 @@ data ConnectionError =
 -- Comes packed with the query template and a textual representation of the provided params.
 data QueryError =
   QueryError ByteString [Text] CommandError
-  deriving (Show, Eq)
+  deriving (Show, Eq, Exception)
 
 -- |
 -- An error of some command in the session.
@@ -39,7 +39,7 @@ data CommandError =
   -- |
   -- Some error with a command result.
   ResultError ResultError
-  deriving (Show, Eq)
+  deriving (Show, Eq, Exception)
 
 -- |
 -- An error with a command result.
@@ -77,7 +77,7 @@ data ResultError =
   -- |
   -- An unexpected amount of rows.
   UnexpectedAmountOfRows Int
-  deriving (Show, Eq)
+  deriving (Show, Eq, Exception)
 
 -- |
 -- An error during the decoding of a specific row.
@@ -92,4 +92,4 @@ data RowError =
   -- Appears when a wrong value parser is used.
   -- Comes with the error details.
   ValueError Text
-  deriving (Show, Eq)
+  deriving (Show, Eq, Exception)
